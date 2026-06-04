@@ -1,0 +1,96 @@
+package com.example.ai_ad_feed_flow.detail
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.ai_ad_feed_flow.AppGraph
+import com.example.ai_ad_feed_flow.R
+import com.example.ai_ad_feed_flow.data.model.FeedCardUiModel
+import com.example.ai_ad_feed_flow.databinding.ActivityDetailBinding
+import com.example.ai_ad_feed_flow.feed.adapter.collectLabel
+import com.example.ai_ad_feed_flow.feed.adapter.coverColorRes
+import com.example.ai_ad_feed_flow.feed.adapter.likeLabel
+import com.example.ai_ad_feed_flow.feed.adapter.statsLabel
+import com.example.ai_ad_feed_flow.feed.adapter.tagsLabel
+import kotlinx.coroutines.launch
+
+class DetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailBinding
+
+    private val viewModel: DetailViewModel by viewModels {
+        DetailViewModel.Factory(
+            adId = intent.getStringExtra(EXTRA_AD_ID).orEmpty(),
+            repository = AppGraph.feedRepository
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.detailRoot) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        setSupportActionBar(binding.detailToolbar)
+        binding.detailToolbar.setNavigationOnClickListener { finish() }
+
+        binding.likeButton.setOnClickListener { viewModel.toggleLike() }
+        binding.collectButton.setOnClickListener { viewModel.toggleCollect() }
+        binding.shareButton.setOnClickListener { viewModel.share() }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect(::render)
+            }
+        }
+    }
+
+    private fun render(state: DetailUiState) {
+        val card = state.card
+        binding.detailContent.isVisible = card != null
+        binding.missingText.isVisible = card == null
+        supportActionBar?.title = card?.ad?.title ?: getString(R.string.app_name)
+
+        if (card != null) {
+            renderCard(card)
+        }
+    }
+
+    private fun renderCard(card: FeedCardUiModel) = with(binding) {
+        val context = root.context
+        coverLabel.text = card.ad.title
+        coverLabel.setBackgroundResource(card.ad.channel.coverColorRes())
+        titleText.text = card.ad.title
+        brandText.text = card.ad.brand
+        summaryText.text = card.ad.summary
+        tagsText.text = card.tagsLabel()
+        descriptionText.text = card.ad.description
+        statsText.text = card.statsLabel()
+        likeButton.text = card.likeLabel(context)
+        collectButton.text = card.collectLabel(context)
+    }
+
+    companion object {
+        private const val EXTRA_AD_ID = "extra_ad_id"
+
+        fun createIntent(context: Context, adId: String): Intent {
+            return Intent(context, DetailActivity::class.java)
+                .putExtra(EXTRA_AD_ID, adId)
+        }
+    }
+}

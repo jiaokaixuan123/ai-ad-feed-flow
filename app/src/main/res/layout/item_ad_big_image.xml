@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_spacing"
+    app:cardBackgroundColor="@color/feed_surface"
+    app:cardCornerRadius="@dimen/card_radius"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cover_label"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cover_big_height"
+            android:background="@color/feed_cover_featured"
+            android:gravity="center"
+            android:textColor="@color/feed_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="精选灵感 1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/card_inner_padding">
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/feed_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="精选灵感 1" />
+
+            <TextView
+                android:id="@+id/brand_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/feed_text_secondary"
+                android:textSize="13sp"
+                tools:text="Flow Studio" />
+
+            <TextView
+                android:id="@+id/summary_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/feed_text_primary"
+                android:textSize="14sp"
+                tools:text="AI 摘要：适合关注高质感的人群。" />
+
+            <TextView
+                android:id="@+id/tags_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/feed_accent"
+                android:textSize="13sp"
+                tools:text="#高质感 #年轻人 #通勤" />
+
+            <TextView
+                android:id="@+id/stats_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/feed_text_secondary"
+                android:textSize="12sp"
+                tools:text="点击 0 · 分享 0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/like_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_like" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/collect_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_collect" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/share_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_share" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

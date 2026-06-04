@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="feed_background">#F6F7F9</color>
+    <color name="feed_surface">#FFFFFFFF</color>
+    <color name="feed_text_primary">#202124</color>
+    <color name="feed_text_secondary">#5F6368</color>
+    <color name="feed_accent">#0B57D0</color>
+    <color name="feed_accent_soft">#E8F0FE</color>
+    <color name="feed_positive">#C5221F</color>
+    <color name="feed_cover_featured">#CDE7FF</color>
+    <color name="feed_cover_ecommerce">#D8F5D0</color>
+    <color name="feed_cover_local">#FFE3B8</color>
+    <color name="feed_video_overlay">#66000000</color>
+</resources>
