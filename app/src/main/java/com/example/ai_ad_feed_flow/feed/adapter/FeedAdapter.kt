@@ -21,6 +21,7 @@ class FeedAdapter(
         return when (getItem(position).ad.type) {
             AdType.BIG_IMAGE -> VIEW_TYPE_BIG_IMAGE
             AdType.SMALL_IMAGE -> VIEW_TYPE_SMALL_IMAGE
+            AdType.IMAGE_TEXT -> VIEW_TYPE_IMAGE_TEXT
             AdType.VIDEO -> VIEW_TYPE_VIDEO
         }
     }
@@ -42,6 +43,16 @@ class FeedAdapter(
                 onCollectClick = onCollectClick,
                 onShareClick = onShareClick
             )
+            VIEW_TYPE_IMAGE_TEXT -> {
+                // TODO(甲): Replace with ImageTextAdViewHolder once item_ad_image_text.xml is ready
+                BigImageAdViewHolder(
+                    binding = ItemAdBigImageBinding.inflate(inflater, parent, false),
+                    onCardClick = onCardClick,
+                    onLikeClick = onLikeClick,
+                    onCollectClick = onCollectClick,
+                    onShareClick = onShareClick
+                )
+            }
             else -> VideoAdViewHolder(
                 binding = ItemAdVideoBinding.inflate(inflater, parent, false),
                 onCardClick = onCardClick,
@@ -71,9 +82,10 @@ class FeedAdapter(
         }
     }
 
-    private companion object {
+    companion object {
         const val VIEW_TYPE_BIG_IMAGE = 1
         const val VIEW_TYPE_SMALL_IMAGE = 2
-        const val VIEW_TYPE_VIDEO = 3
+        const val VIEW_TYPE_IMAGE_TEXT = 3
+        const val VIEW_TYPE_VIDEO = 4
     }
 }

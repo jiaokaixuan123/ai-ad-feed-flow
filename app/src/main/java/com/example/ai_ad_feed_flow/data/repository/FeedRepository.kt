@@ -7,7 +7,9 @@ import com.example.ai_ad_feed_flow.data.model.InteractionState
 import com.example.ai_ad_feed_flow.data.model.PageResult
 import com.example.ai_ad_feed_flow.data.source.FeedDataSource
 import com.example.ai_ad_feed_flow.data.store.InteractionStore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 
 class FeedRepository(
     private val dataSource: FeedDataSource,
@@ -17,12 +19,12 @@ class FeedRepository(
 
     val interactionStates: StateFlow<Map<String, InteractionState>> = interactionStore.states
 
-    fun loadPage(
+    suspend fun loadPage(
         channel: FeedChannel,
         page: Int,
         pageSize: Int,
         refresh: Boolean = false
-    ): PageResult<FeedCardUiModel> {
+    ): PageResult<FeedCardUiModel> = withContext(Dispatchers.IO) {
         val result = dataSource.getPage(channel, page, pageSize)
         val loadedItems = if (refresh || page == FIRST_PAGE) {
             mutableListOf()
@@ -33,7 +35,7 @@ class FeedRepository(
         loadedItems.addAll(result.items)
         loadedItemsByChannel[channel] = loadedItems
 
-        return PageResult(
+        PageResult(
             items = loadedItems.map(::toCard),
             page = result.page,
             hasMore = result.hasMore
@@ -44,8 +46,8 @@ class FeedRepository(
         return loadedItemsByChannel[channel].orEmpty().map(::toCard)
     }
 
-    fun getCard(id: String): FeedCardUiModel? {
-        return dataSource.getById(id)?.let(::toCard)
+    suspend fun getCard(id: String): FeedCardUiModel? = withContext(Dispatchers.IO) {
+        dataSource.getById(id)?.let(::toCard)
     }
 
     fun toggleLike(id: String) {
@@ -62,6 +64,10 @@ class FeedRepository(
 
     fun recordClick(id: String) {
         interactionStore.recordClick(id)
+    }
+
+    fun recordImpression(id: String) {
+        interactionStore.recordImpression(id)
     }
 
     private fun toCard(adItem: AdItem): FeedCardUiModel {

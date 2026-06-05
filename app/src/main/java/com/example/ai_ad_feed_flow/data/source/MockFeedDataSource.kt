@@ -10,7 +10,7 @@ class MockFeedDataSource : FeedDataSource {
         (1..12).map { index -> createItem(channel, index) }
     }
 
-    override fun getPage(channel: FeedChannel, page: Int, pageSize: Int): PageResult<AdItem> {
+    override suspend fun getPage(channel: FeedChannel, page: Int, pageSize: Int): PageResult<AdItem> {
         val channelItems = items.filter { it.channel == channel }
         val safePage = page.coerceAtLeast(1)
         val safePageSize = pageSize.coerceAtLeast(1)
@@ -24,14 +24,15 @@ class MockFeedDataSource : FeedDataSource {
         )
     }
 
-    override fun getById(id: String): AdItem? {
+    override suspend fun getById(id: String): AdItem? {
         return items.firstOrNull { it.id == id }
     }
 
     private fun createItem(channel: FeedChannel, index: Int): AdItem {
-        val type = when (index % 3) {
+        val type = when (index % 4) {
             1 -> AdType.BIG_IMAGE
             2 -> AdType.SMALL_IMAGE
+            3 -> AdType.IMAGE_TEXT
             else -> AdType.VIDEO
         }
         val channelPrefix = when (channel) {
@@ -60,6 +61,10 @@ class MockFeedDataSource : FeedDataSource {
             tags = tags,
             coverUrl = "mock://$channelPrefix/cover_$index",
             videoUrl = if (type == AdType.VIDEO) "mock://$channelPrefix/video_$index.mp4" else null,
+            images = if (type == AdType.IMAGE_TEXT) listOf(
+                "mock://$channelPrefix/img_${index}_1",
+                "mock://$channelPrefix/img_${index}_2"
+            ) else emptyList(),
             description = "这是$titlePrefix $index 的详情说明。MVP 阶段使用本地 mock 数据，后续可以通过 Retrofit 替换为后端分页接口返回的数据。"
         )
     }

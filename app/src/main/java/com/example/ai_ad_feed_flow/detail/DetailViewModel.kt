@@ -18,9 +18,9 @@ class DetailViewModel(
     val uiState: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
     init {
-        repository.recordClick(adId)
-        refreshCard()
         viewModelScope.launch {
+            repository.recordClick(adId)
+            refreshCard()
             repository.interactionStates.collect {
                 refreshCard()
             }
@@ -39,7 +39,7 @@ class DetailViewModel(
         repository.share(adId)
     }
 
-    private fun refreshCard() {
+    private suspend fun refreshCard() {
         val card = repository.getCard(adId)
         _uiState.update {
             if (card == null) {

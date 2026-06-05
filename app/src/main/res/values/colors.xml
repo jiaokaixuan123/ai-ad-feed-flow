@@ -13,4 +13,5 @@
     <color name="feed_cover_ecommerce">#D8F5D0</color>
     <color name="feed_cover_local">#FFE3B8</color>
     <color name="feed_video_overlay">#66000000</color>
+    <color name="cover_placeholder">#E0E0E0</color>
 </resources>

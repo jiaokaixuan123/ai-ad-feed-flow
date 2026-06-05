@@ -10,5 +10,6 @@ data class AdItem(
     val tags: List<String>,
     val coverUrl: String,
     val videoUrl: String?,
+    val images: List<String> = emptyList(),
     val description: String
 )

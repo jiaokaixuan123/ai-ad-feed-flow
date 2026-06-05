@@ -29,22 +29,28 @@ class FeedViewModel(
     }
 
     fun loadFirstPage() {
-        currentPage = FIRST_PAGE
-        _uiState.update { it.copy(isRefreshing = true, errorMessage = null) }
-        val result = repository.loadPage(
-            channel = channel,
-            page = FIRST_PAGE,
-            pageSize = PAGE_SIZE,
-            refresh = true
-        )
-        _uiState.update {
-            it.copy(
-                items = result.items,
-                isRefreshing = false,
-                isLoadingMore = false,
-                hasMore = result.hasMore,
-                errorMessage = null
-            )
+        viewModelScope.launch {
+            currentPage = FIRST_PAGE
+            _uiState.update { it.copy(isRefreshing = true, errorMessage = null) }
+            try {
+                val result = repository.loadPage(
+                    channel = channel,
+                    page = FIRST_PAGE,
+                    pageSize = PAGE_SIZE,
+                    refresh = true
+                )
+                _uiState.update {
+                    it.copy(
+                        items = result.items,
+                        isRefreshing = false,
+                        isLoadingMore = false,
+                        hasMore = result.hasMore,
+                        errorMessage = null
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(isRefreshing = false, errorMessage = e.message) }
+            }
         }
     }
 
@@ -56,21 +62,27 @@ class FeedViewModel(
         val state = _uiState.value
         if (state.isLoadingMore || !state.hasMore) return
 
-        _uiState.update { it.copy(isLoadingMore = true, errorMessage = null) }
-        val nextPage = currentPage + 1
-        val result = repository.loadPage(
-            channel = channel,
-            page = nextPage,
-            pageSize = PAGE_SIZE
-        )
-        currentPage = nextPage
-        _uiState.update {
-            it.copy(
-                items = result.items,
-                isLoadingMore = false,
-                hasMore = result.hasMore,
-                errorMessage = null
-            )
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoadingMore = true, errorMessage = null) }
+            val nextPage = currentPage + 1
+            try {
+                val result = repository.loadPage(
+                    channel = channel,
+                    page = nextPage,
+                    pageSize = PAGE_SIZE
+                )
+                currentPage = nextPage
+                _uiState.update {
+                    it.copy(
+                        items = result.items,
+                        isLoadingMore = false,
+                        hasMore = result.hasMore,
+                        errorMessage = null
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(isLoadingMore = false, errorMessage = e.message) }
+            }
         }
     }
 
@@ -88,6 +100,10 @@ class FeedViewModel(
 
     fun recordClick(id: String) {
         repository.recordClick(id)
+    }
+
+    fun recordImpression(id: String) {
+        repository.recordImpression(id)
     }
 
     private fun syncInteractionState() {

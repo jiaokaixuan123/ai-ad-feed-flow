@@ -5,7 +5,7 @@ import com.example.ai_ad_feed_flow.data.model.FeedChannel
 import com.example.ai_ad_feed_flow.data.model.PageResult
 
 interface FeedDataSource {
-    fun getPage(channel: FeedChannel, page: Int, pageSize: Int): PageResult<AdItem>
+    suspend fun getPage(channel: FeedChannel, page: Int, pageSize: Int): PageResult<AdItem>
 
-    fun getById(id: String): AdItem?
+    suspend fun getById(id: String): AdItem?
 }

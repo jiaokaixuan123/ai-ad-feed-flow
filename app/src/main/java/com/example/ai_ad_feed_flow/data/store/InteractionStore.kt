@@ -30,6 +30,10 @@ class InteractionStore {
         update(adId) { it.copy(clickCount = it.clickCount + 1) }
     }
 
+    fun recordImpression(adId: String) {
+        update(adId) { it.copy(impressionCount = it.impressionCount + 1) }
+    }
+
     private fun update(adId: String, reducer: (InteractionState) -> InteractionState) {
         _states.update { current ->
             current + (adId to reducer(current[adId] ?: InteractionState()))
