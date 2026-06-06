@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ai_ad_feed_flow.AppGraph
+import com.example.ai_ad_feed_flow.R
 import com.example.ai_ad_feed_flow.data.model.FeedCardUiModel
 import com.example.ai_ad_feed_flow.data.model.FeedChannel
 import com.example.ai_ad_feed_flow.databinding.FragmentFeedBinding
@@ -84,6 +85,9 @@ class FeedFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
+        binding.retryButton.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun collectState() {
@@ -95,9 +99,13 @@ class FeedFragment : Fragment() {
     }
 
     private fun render(state: FeedUiState) {
+        val statusVisibility = state.toFeedStatusVisibility()
         feedAdapter.submitList(state.items)
         binding.swipeRefresh.isRefreshing = state.isRefreshing
-        binding.emptyText.isVisible = state.items.isEmpty() && !state.isRefreshing
+        binding.emptyText.isVisible = statusVisibility.showEmpty
+        binding.loadingMoreText.isVisible = statusVisibility.showLoadingMore
+        binding.errorGroup.isVisible = statusVisibility.showError
+        binding.errorText.text = state.errorMessage ?: getString(R.string.feed_error_default)
     }
 
     private fun openDetail(card: FeedCardUiModel) {
@@ -116,4 +124,19 @@ class FeedFragment : Fragment() {
             }
         }
     }
+}
+
+internal data class FeedStatusVisibility(
+    val showEmpty: Boolean,
+    val showLoadingMore: Boolean,
+    val showError: Boolean
+)
+
+internal fun FeedUiState.toFeedStatusVisibility(): FeedStatusVisibility {
+    val hasError = errorMessage != null
+    return FeedStatusVisibility(
+        showEmpty = items.isEmpty() && !isRefreshing && !hasError,
+        showLoadingMore = isLoadingMore,
+        showError = hasError
+    )
 }

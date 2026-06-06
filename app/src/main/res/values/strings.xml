@@ -2,7 +2,9 @@
     <string name="app_name">AI广告信息流</string>
     <string name="feed_empty">暂无广告内容</string>
     <string name="feed_loading_more">正在加载更多...</string>
+    <string name="feed_error_default">内容加载失败，请稍后重试</string>
     <string name="detail_missing">没有找到这条广告</string>
+    <string name="action_retry">重试</string>
     <string name="action_like">点赞</string>
     <string name="action_liked">已赞</string>
     <string name="action_collect">收藏</string>
