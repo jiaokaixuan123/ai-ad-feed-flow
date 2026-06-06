@@ -3,6 +3,7 @@ package com.example.ai_ad_feed_flow.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +53,9 @@ class DetailActivity : AppCompatActivity() {
         binding.likeButton.setOnClickListener { viewModel.toggleLike() }
         binding.collectButton.setOnClickListener { viewModel.toggleCollect() }
         binding.shareButton.setOnClickListener { viewModel.share() }
+        binding.ctaButton.setOnClickListener {
+            Toast.makeText(this, R.string.detail_cta_mock, Toast.LENGTH_SHORT).show()
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -78,6 +82,13 @@ class DetailActivity : AppCompatActivity() {
         titleText.text = card.ad.title
         brandText.text = card.ad.brand
         summaryText.text = card.ad.summary
+        val recommendationBasis = card.recommendationReasonBasis()
+        recommendationReasonText.text = context.getString(
+            R.string.detail_recommendation_reason_format,
+            recommendationBasis.channelTitle,
+            recommendationBasis.tagSummary,
+            recommendationBasis.brand
+        )
         tagsText.text = card.tagsLabel()
         descriptionText.text = card.ad.description
         statsText.text = card.statsLabel()
@@ -94,3 +105,21 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 }
+
+internal data class RecommendationReasonBasis(
+    val channelTitle: String,
+    val tagSummary: String,
+    val brand: String
+)
+
+internal fun FeedCardUiModel.recommendationReasonBasis(): RecommendationReasonBasis {
+    val tagSummary = ad.tags.take(MAX_RECOMMENDATION_TAGS).joinToString(", ")
+        .ifBlank { "content" }
+    return RecommendationReasonBasis(
+        channelTitle = ad.channel.title,
+        tagSummary = tagSummary,
+        brand = ad.brand
+    )
+}
+
+private const val MAX_RECOMMENDATION_TAGS = 2

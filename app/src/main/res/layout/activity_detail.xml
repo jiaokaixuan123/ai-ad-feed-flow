@@ -75,6 +75,42 @@
                 android:textSize="16sp"
                 tools:text="AI 摘要" />
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/recommendation_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:cardBackgroundColor="@color/feed_accent_soft"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_inner_padding">
+
+                    <TextView
+                        android:id="@+id/recommendation_title_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_recommendation_title"
+                        android:textColor="@color/feed_accent"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/recommendation_reason_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/feed_text_primary"
+                        android:textSize="15sp"
+                        tools:text="基于频道、标签和品牌特征，为你推荐这条广告。" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/tags_text"
                 android:layout_width="match_parent"
@@ -94,19 +130,48 @@
                 android:textSize="15sp"
                 tools:text="详情说明" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cta_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:minHeight="48dp"
+                android:text="@string/action_view_activity"
+                app:cornerRadius="@dimen/card_radius" />
+
+            <TextView
+                android:id="@+id/stats_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/detail_stats_title"
+                android:textColor="@color/feed_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/stats_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/feed_text_secondary"
                 android:textSize="13sp"
                 tools:text="点击 1 · 分享 0" />
 
+            <TextView
+                android:id="@+id/interactions_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/detail_interactions_title"
+                android:textColor="@color/feed_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:gravity="end"
                 android:orientation="horizontal">
 
