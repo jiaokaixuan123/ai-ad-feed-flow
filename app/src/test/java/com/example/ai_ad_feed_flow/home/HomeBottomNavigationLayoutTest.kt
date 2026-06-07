@@ -8,7 +8,7 @@ import org.w3c.dom.Element
 
 class HomeBottomNavigationLayoutTest {
     @Test
-    fun bottomNavigationUsesCompactInsetLayout() {
+    fun bottomNavigationKeepsDefaultShapeWithSlightBottomOffset() {
         val document = DocumentBuilderFactory.newInstance()
             .apply { isNamespaceAware = true }
             .newDocumentBuilder()
@@ -18,13 +18,9 @@ class HomeBottomNavigationLayoutTest {
             "com.google.android.material.bottomnavigation.BottomNavigationView"
         ).item(0) as Element
 
-        assertEquals("@dimen/home_bottom_nav_height", bottomNavigation.androidAttribute("layout_height"))
-        assertEquals("@dimen/home_bottom_nav_horizontal_margin", bottomNavigation.androidAttribute("layout_marginStart"))
-        assertEquals("@dimen/home_bottom_nav_horizontal_margin", bottomNavigation.androidAttribute("layout_marginEnd"))
-        assertEquals(
-            "@style/Widget.Aiadfeedflow.BottomNavigationActiveIndicator",
-            bottomNavigation.appAttribute("itemActiveIndicatorStyle")
-        )
+        assertEquals("match_parent", bottomNavigation.androidAttribute("layout_width"))
+        assertEquals("wrap_content", bottomNavigation.androidAttribute("layout_height"))
+        assertEquals("6dp", bottomNavigation.androidAttribute("translationY"))
     }
 
     private fun activityMainLayoutFile(): File {
@@ -38,12 +34,7 @@ class HomeBottomNavigationLayoutTest {
         return getAttributeNS(ANDROID_NAMESPACE, name)
     }
 
-    private fun Element.appAttribute(name: String): String {
-        return getAttributeNS(APP_NAMESPACE, name)
-    }
-
     companion object {
         private const val ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android"
-        private const val APP_NAMESPACE = "http://schemas.android.com/apk/res-auto"
     }
 }
