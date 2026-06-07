@@ -11,24 +11,73 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/feed_top_bar"
+        android:elevation="0dp"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/feed_surface"
-            android:title="@string/app_name"
-            app:titleTextColor="@color/feed_text_primary" />
+            android:layout_height="@dimen/home_top_bar_height"
+            android:background="@color/feed_top_bar"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:title=""
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp"
+            app:title="">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/channel_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/feed_surface"
-            app:tabIndicatorColor="@color/feed_accent"
-            app:tabSelectedTextColor="@color/feed_accent"
-            app:tabTextColor="@color/feed_text_secondary" />
+            <LinearLayout
+                android:id="@+id/top_bar_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/home_top_bar_horizontal_padding"
+                android:paddingEnd="@dimen/home_top_bar_horizontal_padding">
+
+                <ImageButton
+                    android:id="@+id/top_menu_button"
+                    android:layout_width="@dimen/home_top_bar_icon_touch"
+                    android:layout_height="@dimen/home_top_bar_icon_touch"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/content_desc_top_menu"
+                    android:padding="@dimen/home_top_bar_icon_padding"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_menu"
+                    app:tint="@color/feed_top_icon" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/channel_tabs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/feed_top_bar"
+                    app:tabBackground="@android:color/transparent"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/feed_top_selected"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabMode="scrollable"
+                    app:tabRippleColor="@color/feed_top_ripple"
+                    app:tabSelectedTextColor="@color/feed_top_selected"
+                    app:tabTextColor="@color/feed_top_unselected" />
+
+                <ImageButton
+                    android:id="@+id/top_search_button"
+                    android:layout_width="@dimen/home_top_bar_icon_touch"
+                    android:layout_height="@dimen/home_top_bar_icon_touch"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/content_desc_top_search"
+                    android:padding="@dimen/home_top_bar_icon_padding"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/feed_top_icon" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,6 +85,26 @@
         android:id="@+id/feed_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/home_bottom_switch_clearance"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_bottom_nav_height"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/home_bottom_nav_horizontal_margin"
+        android:layout_marginEnd="@dimen/home_bottom_nav_horizontal_margin"
+        android:background="@color/feed_surface"
+        android:elevation="8dp"
+        android:minHeight="0dp"
+        app:itemActiveIndicatorStyle="@style/Widget.Aiadfeedflow.BottomNavigationActiveIndicator"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemPaddingBottom="@dimen/home_bottom_nav_item_padding_bottom"
+        app:itemPaddingTop="@dimen/home_bottom_nav_item_padding_top"
+        app:itemRippleColor="@color/feed_accent_soft"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_home_bottom_nav" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,24 @@
 <resources>
     <string name="app_name">AI广告信息流</string>
+    <string name="home_badge">AI AD FEED</string>
+    <string name="home_title">今日推荐</string>
+    <string name="home_subtitle">AI 为你整理高匹配广告内容</string>
+    <string name="home_search_hint">找适合通勤的耳机广告</string>
+    <string name="home_search_ai_badge">AI</string>
+    <string name="home_stats_label">统计</string>
+    <string name="home_settings_label">设置</string>
+    <string name="bottom_nav_feed">首页</string>
+    <string name="bottom_nav_stats">统计</string>
+    <string name="bottom_nav_settings">设置</string>
+    <string name="home_interactions_label">我的互动</string>
+    <string name="home_entry_search_unavailable">搜索页将在后续开发中接入，当前先保留 AI 搜索入口</string>
+    <string name="home_entry_stats_unavailable">统计看板将在 6.10 接入，当前先保留入口</string>
+    <string name="home_entry_interactions_unavailable">收藏和历史页将在 6.11 接入，当前先保留入口</string>
+    <string name="home_entry_settings_unavailable">设置与调试页将在后续接入，当前先保留入口</string>
+    <string name="content_desc_search_entry">打开搜索入口</string>
+    <string name="content_desc_stats_entry">打开推荐效果统计</string>
+    <string name="content_desc_interactions_entry">打开我的互动记录</string>
+    <string name="content_desc_settings_entry">打开设置和调试入口</string>
     <string name="feed_empty">暂无广告内容</string>
     <string name="feed_loading_more">正在加载更多...</string>
     <string name="feed_error_default">内容加载失败，请稍后重试</string>
@@ -18,4 +37,7 @@
     <string name="action_share">分享</string>
     <string name="video_badge">视频</string>
     <string name="video_play_hint">点击播放</string>
+    <string name="home_entry_menu_unavailable">菜单入口将在后续开发中接入，当前先保留短视频式顶部入口</string>
+    <string name="content_desc_top_menu">打开顶部菜单</string>
+    <string name="content_desc_top_search">打开顶部搜索</string>
 </resources>

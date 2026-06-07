@@ -2,15 +2,29 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="feed_background">#F6F7F9</color>
+    <color name="feed_background">#F6F8FC</color>
     <color name="feed_surface">#FFFFFFFF</color>
-    <color name="feed_text_primary">#202124</color>
-    <color name="feed_text_secondary">#5F6368</color>
-    <color name="feed_accent">#0B57D0</color>
-    <color name="feed_accent_soft">#E8F0FE</color>
-    <color name="feed_positive">#C5221F</color>
+    <color name="feed_text_primary">#172033</color>
+    <color name="feed_text_secondary">#64748B</color>
+    <color name="feed_accent">#2563EB</color>
+    <color name="feed_accent_soft">#EAF2FF</color>
+    <color name="feed_border">#E2E8F0</color>
+    <color name="feed_data">#0F766E</color>
+    <color name="feed_data_soft">#DDF7F3</color>
+    <color name="feed_warning">#D97706</color>
+    <color name="feed_like">#E11D48</color>
+    <color name="feed_positive">#0F766E</color>
+    <color name="feed_chip_blue">#EAF2FF</color>
+    <color name="feed_chip_green">#DDF7F3</color>
+    <color name="feed_chip_yellow">#FEF3C7</color>
+    <color name="feed_chip_rose">#FFE4E6</color>
     <color name="feed_cover_featured">#CDE7FF</color>
     <color name="feed_cover_ecommerce">#D8F5D0</color>
     <color name="feed_cover_local">#FFE3B8</color>
     <color name="feed_video_overlay">#66000000</color>
+    <color name="feed_top_bar">#F6F8FC</color>
+    <color name="feed_top_selected">#2563EB</color>
+    <color name="feed_top_unselected">#64748B</color>
+    <color name="feed_top_icon">#172033</color>
+    <color name="feed_top_ripple">#1A2563EB</color>
 </resources>

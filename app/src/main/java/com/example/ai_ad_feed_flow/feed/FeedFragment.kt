@@ -72,9 +72,11 @@ class FeedFragment : Fragment() {
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy <= 0) return
+                if (feedAdapter.itemCount == 0) return
                 val manager = recyclerView.layoutManager as? LinearLayoutManager ?: return
                 val lastVisible = manager.findLastVisibleItemPosition()
-                if (lastVisible >= feedAdapter.itemCount - LOAD_MORE_THRESHOLD) {
+                val totalItems = feedAdapter.itemCount
+                if (lastVisible >= totalItems - LOAD_MORE_THRESHOLD) {
                     viewModel.loadNextPage()
                 }
             }

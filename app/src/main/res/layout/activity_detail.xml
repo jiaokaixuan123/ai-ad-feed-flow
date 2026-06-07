@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/feed_background"
-    android:fitsSystemWindows="true"
     tools:context=".detail.DetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/detail_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:background="@color/feed_surface">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/detail_toolbar"
